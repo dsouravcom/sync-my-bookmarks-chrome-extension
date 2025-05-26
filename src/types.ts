@@ -4,4 +4,6 @@ export interface BookmarkNode {
   url?: string;
   children?: BookmarkNode[];
   parentId?: string;
+  dateAdded?: number;
+  type: 'bookmark' | 'folder';
 }
