@@ -1,0 +1,41 @@
+<!-- Bookmark Manager Extension Logo -->
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="64" cy="64" r="64" fill="#3B82F6"/>
+  
+  <!-- Inner Background -->
+  <circle cx="64" cy="64" r="56" fill="#2563EB"/>
+  
+  <!-- Main Bookmark Icon -->
+  <path d="M38 25C38 22.7909 39.7909 21 42 21H86C88.2091 21 90 22.7909 90 25V95L75 82L64 90L53 82L38 95V25Z" fill="white"/>
+  
+  <!-- Bookmark Fold -->
+  <path d="M75 82L64 90L53 82L38 95L38 88L53 75L64 83L75 75L90 88L90 95L75 82Z" fill="#EBF4FF" fill-opacity="0.8"/>
+  
+  <!-- Inner Accent Lines -->
+  <rect x="46" y="35" width="36" height="3" rx="1.5" fill="#3B82F6"/>
+  <rect x="46" y="44" width="28" height="2.5" rx="1.25" fill="#60A5FA"/>
+  <rect x="46" y="52" width="32" height="2.5" rx="1.25" fill="#60A5FA"/>
+  <rect x="46" y="60" width="24" height="2.5" rx="1.25" fill="#60A5FA"/>
+  
+  <!-- Folder Icon Overlay (small) -->
+  <g transform="translate(75, 15) scale(0.6)">
+    <path d="M2 4C2 3.44772 2.44772 3 3 3H9L11 5H17C17.5523 5 18 5.44772 18 6V14C18 14.5523 17.5523 15 17 15H3C2.44772 15 2 14.5523 2 14V4Z" fill="#FBBF24"/>
+    <path d="M2 6H18V14C18 14.5523 17.5523 15 17 15H3C2.44772 15 2 14.5523 2 14V6Z" fill="#F59E0B"/>
+  </g>
+  
+  <!-- Search Icon (small) -->
+  <g transform="translate(102, 102) scale(0.8)">
+    <circle cx="8" cy="8" r="6" stroke="white" stroke-width="2" fill="none"/>
+    <path d="M21 21L16.514 16.506" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Subtle Shine Effect -->
+  <defs>
+    <linearGradient id="shine" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:white;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:white;stop-opacity:0" />
+    </linearGradient>
+  </defs>
+  <circle cx="64" cy="64" r="64" fill="url(#shine)"/>
+</svg>

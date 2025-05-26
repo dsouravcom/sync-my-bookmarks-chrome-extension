@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Bookmark Manager",
+  "version": "1.0",
+  "description": "A modern and beautiful bookmark manager with search, organization, and quick access features",
+  "permissions": ["bookmarks", "tabs", "storage"],
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "Bookmark Manager",
+    "default_icon": {
+      "16": "logo-16.svg",
+      "48": "logo-48.svg",
+      "128": "logo.svg"
+    }
+  },
+  "icons": {
+    "16": "logo-16.svg",
+    "48": "logo-48.svg",
+    "128": "logo.svg"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["fullscreen.html", "verify.html", "profile.html"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
