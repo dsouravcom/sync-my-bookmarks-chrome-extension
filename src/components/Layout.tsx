@@ -53,9 +53,9 @@ function Layout({ children, user }: LayoutProps) {
               {/* Logo */}
               <Link to="/">
                 <div className="flex-shrink-0 flex items-center">
-                  <img className="h-8 w-8" src={Logo} alt="Bookmark Manager" />
+                  <img className="h-8 w-8" src={Logo} alt="Sync My Bookmarks" />
                   <span className="ml-2 text-lg font-semibold text-gray-900">
-                    Bookmark Manager
+                    Sync My Bookmarks
                   </span>
                 </div>
               </Link>

@@ -178,7 +178,7 @@ export default function FullScreenView({
             <div>
               <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
                 <img src={Logo} alt="logo" className="size-8 mt-1" />
-                Bookmark Manager
+                Sync My Bookmarks
               </h1>
               <p className="text-gray-600 text-sm mt-1">
                 📚 Organize and access your {totalBookmarks} bookmarks

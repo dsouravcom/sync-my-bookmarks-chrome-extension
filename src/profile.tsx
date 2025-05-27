@@ -70,7 +70,7 @@ function ProfilePage() {
                 <h1 className="text-2xl font-bold text-gray-800">
                   Your Profile
                 </h1>
-                <p className="text-gray-600">Bookmark Manager Account</p>
+                <p className="text-gray-600">Sync My Bookmarks Account</p>
               </div>
             </div>
             <button
@@ -171,7 +171,7 @@ function ProfilePage() {
                     }
                     className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors flex items-center justify-center gap-2"
                   >
-                    🔖 Open Bookmark Manager
+                    🔖 Open Sync My Bookmarks
                   </button>
 
                   <button
