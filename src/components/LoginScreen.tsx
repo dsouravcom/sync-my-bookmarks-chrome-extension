@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AuthService } from "../auth";
+import { sendLoginCode, verifyCode } from "../auth";
 
 interface LoginScreenProps {
   onLoginSuccess: () => void;
@@ -19,7 +19,7 @@ export default function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
     setLoading(true);
     setMessage("");
 
-    const result = await AuthService.sendLoginCode(email);
+    const result = await sendLoginCode(email);
 
     console.log("Login result:", result);
 
@@ -47,10 +47,9 @@ export default function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
     setLoading(true);
     setMessage("");
 
-    const result = await AuthService.verifyCode(email, code);
+    const result = await verifyCode(email, code);
 
-    if (result.success && result.token && result.user) {
-      await AuthService.storeAuthData(result.token, result.user);
+    if (result.success && result.token) {
       onLoginSuccess();
     } else {
       setMessage(result.message);

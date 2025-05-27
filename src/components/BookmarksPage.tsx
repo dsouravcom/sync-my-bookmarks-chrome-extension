@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { User } from "../auth";
+import type { User } from "../types";
 import type { BookmarkNode } from "../types";
 import BookmarkCard from "./BookmarkCard";
 

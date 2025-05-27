@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Logo from "../../public/logo-48.svg";
-import { AuthService, type User } from "../auth";
+import Logo from "../../public/icons/icon48.png";
+import { logout } from "../auth";
+import type { User } from "../types";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -14,7 +15,7 @@ function Layout({ children, user }: LayoutProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleLogout = async () => {
-    await AuthService.logout();
+    await logout();
     setIsDropdownOpen(false);
     // Reload the page to reset auth state
     window.location.reload();

@@ -13,9 +13,11 @@ export default defineConfig({
         fullscreen: "./fullscreen.html",
         verify: "./verify.html",
         profile: "./profile.html",
+        background: "./src/background.ts",
+        periodicSync: "./src/periodicSync.ts",
       },
       output: {
-        entryFileNames: "assets/[name].js",
+        entryFileNames: "[name].js",
       },
     },
   },

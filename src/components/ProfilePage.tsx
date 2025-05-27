@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { AuthService, type User } from "../auth";
+import {
+  deleteAccount,
+  getUserProfile,
+  isAuthenticated,
+  updateProfile,
+} from "../auth";
+import type { User } from "../types";
 
 function ProfilePage() {
   const [user, setUser] = useState<User | null>(null);
@@ -23,9 +29,9 @@ function ProfilePage() {
 
   const loadUserProfile = async () => {
     try {
-      const authData = await AuthService.getAuthData();
+      const isAuth = await isAuthenticated();
 
-      if (!authData.isAuthenticated || !authData.token) {
+      if (!isAuth) {
         setMessage(
           "You are not logged in. Please login through the extension."
         );
@@ -33,7 +39,7 @@ function ProfilePage() {
         return;
       }
 
-      const result = await AuthService.getUserProfile(authData.token);
+      const result = await getUserProfile();
 
       if (result.success && result.user) {
         setUser(result.user);
@@ -80,10 +86,8 @@ function ProfilePage() {
   const handleSaveProfile = async () => {
     try {
       setUploading(true);
-      const authData = await AuthService.getAuthData();
-      if (!authData.token) return;
 
-      const result = await AuthService.updateProfile(authData.token, {
+      const result = await updateProfile({
         name: formData.name,
         avatarFile: selectedFile,
       });
@@ -119,10 +123,7 @@ function ProfilePage() {
     }
 
     try {
-      const authData = await AuthService.getAuthData();
-      if (!authData.token) return;
-
-      const result = await AuthService.deleteAccount(authData.token);
+      const result = await deleteAccount();
 
       if (result.success) {
         setMessage("Account deleted successfully. You have been logged out.");

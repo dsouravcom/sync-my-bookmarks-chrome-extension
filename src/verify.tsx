@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
-import { AuthService } from "./auth";
+import { verifyCode } from "./auth";
 import "./index.css";
 
 function VerifyPage() {
@@ -25,12 +25,9 @@ function VerifyPage() {
     setLoading(true);
     setMessage("");
 
-    const result = await AuthService.verifyCode(email, code);
+    const result = await verifyCode(email, code);
 
     if (result.success && result.token && result.user) {
-      await AuthService.storeAuthData(result.token, result.user);
-      setMessage("✅ Login successful! You can close this tab.");
-
       // Close this tab after 2 seconds
       setTimeout(() => {
         window.close();

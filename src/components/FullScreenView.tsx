@@ -1,9 +1,9 @@
 import { useState } from "react";
-import type { User } from "../auth";
+import type { User } from "../types";
 import type { BookmarkNode } from "../types";
 import BookmarkCard from "./BookmarkCard";
 
-import Logo from "../../public/logo-48.svg";
+import Logo from "../../public/icons/icon48.png";
 
 function FolderSection({
   node,

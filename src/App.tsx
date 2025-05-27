@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Route, HashRouter as Router, Routes } from "react-router-dom";
-import { AuthService, type AuthState } from "./auth";
+import { getUserProfile, isAuthenticated } from "./auth";
 import BookmarksPage from "./components/BookmarksPage";
 import Layout from "./components/Layout";
 import LoginScreen from "./components/LoginScreen";
 import PopupView from "./components/PopupView";
 import ProfilePage from "./components/ProfilePage";
-import type { BookmarkNode } from "./types";
+import type { BookmarkNode, User } from "./types";
 
 interface AppProps {
   isFullScreen?: boolean;
@@ -14,31 +14,43 @@ interface AppProps {
 
 function App({ isFullScreen = false }: AppProps) {
   const [bookmarks, setBookmarks] = useState<BookmarkNode[]>([]);
-  const [authState, setAuthState] = useState<AuthState>({
-    isAuthenticated: false,
-    user: null,
-    token: null,
-  });
+  const [user, setUser] = useState<User | null>(null);
+  const [authenticated, setAuthenticated] = useState(false);
   const [authLoading, setAuthLoading] = useState(true);
 
   // Check authentication status on app load
   useEffect(() => {
     const checkAuth = async () => {
-      const auth = await AuthService.getAuthData();
-      setAuthState(auth);
+      const isAuth = await isAuthenticated();
+      setAuthenticated(isAuth);
+
+      if (isAuth) {
+        const userProfile = await getUserProfile();
+        if (userProfile.success && userProfile.user) {
+          setUser(userProfile.user);
+        }
+      }
+
       setAuthLoading(false);
     };
     checkAuth();
   }, []);
 
   const handleLoginSuccess = async () => {
-    const auth = await AuthService.getAuthData();
-    setAuthState(auth);
+    const isAuth = await isAuthenticated();
+    setAuthenticated(isAuth);
+
+    if (isAuth) {
+      const userProfile = await getUserProfile();
+      if (userProfile.success && userProfile.user) {
+        setUser(userProfile.user);
+      }
+    }
   };
 
   useEffect(() => {
     // Only fetch bookmarks if user is authenticated
-    if (!authState.isAuthenticated) return;
+    if (!authenticated) return;
 
     const fetchBookmarks = async () => {
       const tree = await chrome.bookmarks.getTree();
@@ -59,11 +71,14 @@ function App({ isFullScreen = false }: AppProps) {
         );
 
       // For full screen view, preserve the folder structure
-      const processTree = (nodes: BookmarkNode[]): BookmarkNode[] =>
+      const processTree = (
+        nodes: chrome.bookmarks.BookmarkTreeNode[]
+      ): BookmarkNode[] =>
         nodes.map((node) => ({
           ...node,
           title:
             node.title || (node.url ? new URL(node.url).hostname : "Untitled"),
+          type: node.url ? "bookmark" : "folder",
           children: node.children ? processTree(node.children) : undefined,
         }));
 
@@ -72,12 +87,12 @@ function App({ isFullScreen = false }: AppProps) {
         const processedTree = processTree(tree[0]?.children || tree);
         setBookmarks(processedTree);
       } else {
-        setBookmarks(flatten(tree));
+        const processedTree = processTree(tree);
+        setBookmarks(flatten(processedTree));
       }
     };
-
     fetchBookmarks();
-  }, [isFullScreen, authState.isAuthenticated]);
+  }, [isFullScreen, authenticated]);
 
   // Show loading state while checking authentication
   if (authLoading) {
@@ -98,7 +113,7 @@ function App({ isFullScreen = false }: AppProps) {
   }
 
   // Show login screen if not authenticated and not in fullscreen mode
-  if (!authState.isAuthenticated && !isFullScreen) {
+  if (!authenticated && !isFullScreen) {
     return <LoginScreen onLoginSuccess={handleLoginSuccess} />;
   }
 
@@ -106,13 +121,11 @@ function App({ isFullScreen = false }: AppProps) {
   if (isFullScreen) {
     return (
       <Router>
-        <Layout user={authState.user}>
+        <Layout user={user}>
           <Routes>
             <Route
               path="/"
-              element={
-                <BookmarksPage bookmarks={bookmarks} user={authState.user} />
-              }
+              element={<BookmarksPage bookmarks={bookmarks} user={user} />}
             />
             <Route path="/profile" element={<ProfilePage />} />
           </Routes>
@@ -124,7 +137,7 @@ function App({ isFullScreen = false }: AppProps) {
   // For popup mode, render the popup view
   return (
     <div className="min-w-[320px] max-w-[400px] p-4 bg-gray-50">
-      <PopupView bookmarks={bookmarks} user={authState.user} />
+      <PopupView bookmarks={bookmarks} user={user} />
     </div>
   );
 }

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
-import { AuthService, type User } from "./auth";
+import { getUserProfile, isAuthenticated, logout } from "./auth";
 import "./index.css";
+import type { User } from "./types";
 
 function ProfilePage() {
   const [user, setUser] = useState<User | null>(null);
@@ -11,12 +12,11 @@ function ProfilePage() {
   useEffect(() => {
     loadUserProfile();
   }, []);
-
   const loadUserProfile = async () => {
     try {
-      const authData = await AuthService.getAuthData();
+      const isAuth = await isAuthenticated();
 
-      if (!authData.isAuthenticated || !authData.token) {
+      if (!isAuth) {
         setMessage(
           "You are not logged in. Please login through the extension."
         );
@@ -24,7 +24,7 @@ function ProfilePage() {
         return;
       }
 
-      const result = await AuthService.getUserProfile(authData.token);
+      const result = await getUserProfile();
 
       if (result.success && result.user) {
         setUser(result.user);
@@ -38,9 +38,8 @@ function ProfilePage() {
 
     setLoading(false);
   };
-
   const handleLogout = async () => {
-    await AuthService.logout();
+    await logout();
     setMessage("Logged out successfully! You can close this tab.");
     setUser(null);
   };

@@ -1,8 +1,8 @@
 import { useState } from "react";
-import type { User } from "../auth";
-import type { BookmarkNode } from "../types";
+import { fullSync } from "../syncer";
+import type { BookmarkNode, User } from "../types";
 
-import Logo from "../../public/logo-16.svg";
+import Logo from "../../public/icons/icon16.png";
 
 export default function PopupView({
   bookmarks,
@@ -64,7 +64,14 @@ export default function PopupView({
               >
                 <span className="text-sm">👤</span>
               </button>
-            )}
+            )}{" "}
+            <button
+              onClick={() => fullSync()}
+              className="px-2 py-1 bg-green-500 text-white rounded text-xs hover:bg-green-600 transition-colors flex items-center gap-1"
+              title="Sync bookmarks from server"
+            >
+              🔄
+            </button>
             <button
               onClick={openFullScreen}
               className="px-2 py-1 bg-blue-500 text-white rounded text-xs hover:bg-blue-600 transition-colors flex items-center gap-1"
