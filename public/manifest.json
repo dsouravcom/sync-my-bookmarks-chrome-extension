@@ -1,12 +1,12 @@
 {
   "manifest_version": 3,
-  "name": "Bookmark Manager",
+  "name": "Sync My Bookmarks",
   "version": "1.0",
-  "description": "A modern and beautiful bookmark manager with search, organization, and quick access features",
+  "description": "Sync My Bookmarks a modern and beautiful bookmark manager with search, organization, and quick access features",
   "permissions": ["bookmarks", "tabs", "storage"],
   "action": {
     "default_popup": "index.html",
-    "default_title": "Bookmark Manager",
+    "default_title": "Sync My Bookmarks",
     "default_icon": {
       "16": "logo-16.svg",
       "48": "logo-48.svg",
