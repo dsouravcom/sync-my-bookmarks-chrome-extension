@@ -21,8 +21,6 @@ export default function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
 
     const result = await sendLoginCode(email);
 
-    console.log("Login result:", result);
-
     if (result.success) {
       setStep("code");
       setMessage("Check your email for the verification code");

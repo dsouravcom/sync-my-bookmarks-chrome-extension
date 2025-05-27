@@ -99,9 +99,6 @@ export default function FullScreenView({
     });
   };
 
-  // Log user information for debugging
-  console.log("user", user);
-
   // Function to recursively search through bookmarks and folders
   const searchBookmarks = (
     nodes: BookmarkNode[],

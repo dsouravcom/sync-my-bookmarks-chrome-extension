@@ -247,7 +247,6 @@ export async function getAuthToken(): Promise<string | null> {
 export async function logout(): Promise<void> {
   try {
     await chrome.storage.local.remove("verificationCode");
-    console.log("User logged out successfully");
   } catch (error) {
     console.error("Error during logout:", error);
   }

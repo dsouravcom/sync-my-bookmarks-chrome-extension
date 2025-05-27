@@ -6,9 +6,6 @@ const API_URL = "http://localhost:3000/api/bookmarks";
 
 // --- Notification Function ---
 function showNotification(title: string, message: string): void {
-  console.log(
-    `Attempting to show notification: Title="${title}", Message="${message}"`
-  );
   // Use chrome.runtime.getURL to ensure the icon path is correctly resolved
   const iconPath: string = chrome.runtime.getURL("icons/icon48.png");
   const options = {
@@ -18,14 +15,12 @@ function showNotification(title: string, message: string): void {
     message: message,
     priority: 2, // Higher priority for more important notifications
   };
-  chrome.notifications.create(options, (notificationId: string) => {
+  chrome.notifications.create(options, () => {
     if (chrome.runtime.lastError) {
       console.error(
         "Error creating notification:",
         chrome.runtime.lastError.message
       );
-    } else {
-      console.log("Notification created with ID:", notificationId);
     }
   });
 }
@@ -73,7 +68,6 @@ const sendInitialBookmarksToApi = async (data: {
     // Get the verificationCode from local storage
     const token = await chrome.storage.local.get("verificationCode");
 
-    // console.log("Sending initial bookmarks to API:", data);
     const response = await fetch(API_URL, {
       method: "POST",
       headers: {
@@ -91,8 +85,7 @@ const sendInitialBookmarksToApi = async (data: {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const result = await response.json();
-    console.log("Initial bookmarks sent successfully:", result);
+    await response.json();
   } catch (error) {
     showNotification(
       "Bookmark Sync Failed!",
@@ -114,7 +107,6 @@ const sendBookmarksToApi = async () => {
       }
 
       const allBookmarks = getAllBookmarks(bookmarkTreeNodes);
-      console.log("All bookmarks collected on install:", allBookmarks);
 
       // Send all bookmarks to the specified API_INSTALL_ENDPOINT
       sendInitialBookmarksToApi({ bookmarks: allBookmarks });
