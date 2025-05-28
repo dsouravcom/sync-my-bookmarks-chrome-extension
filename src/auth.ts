@@ -1,8 +1,8 @@
+import { firstSync } from "./syncer";
 import type { User } from "./types";
-import {firstSync} from "./syncer";
 
 // Backend API base URL
-const API_URL = "http://localhost:3000/api";
+const API_URL = "https://api.smb.sourav.dev/api";
 
 // ============================================================================
 // AUTHENTICATION FUNCTIONS

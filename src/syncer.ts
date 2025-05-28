@@ -1,19 +1,7 @@
-// Syncer module for Chrome Extension Bookmark Manager
-//
-// This module provides sync functions that prioritize pure chronological order
-// based on dateAdded timestamps. Items (folders and bookmarks) are created in
-// the order they were originally added, with smart dependency resolution to
-// ensure parent folders exist before their child items.
-//
-// Key features:
-// - firstSync(): Smart duplicate detection and import
-// - fullSync(): Complete reset and reimport with chronological ordering
-// - syncBookmarksToApi(): Upload current Chrome bookmarks to API
-
 import { getAuthToken } from "./auth";
 import type { BookmarkNode } from "./types";
 
-const API_URL = "http://localhost:3000/api/bookmarks";
+const API_URL = "https://api.smb.sourav.dev/api/bookmarks";
 
 const getDefaultTitle = (url: string): string => {
   try {

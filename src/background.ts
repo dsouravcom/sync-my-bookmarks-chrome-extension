@@ -2,7 +2,7 @@ import type { BookmarkNode, BookmarkTreeNode } from "./types";
 // Import periodic sync functionality
 import "./periodicSync";
 
-const API_URL = "http://localhost:3000/api/bookmarks";
+const API_URL = "https://api.smb.sourav.dev/api/bookmarks";
 
 // --- Notification Function ---
 function showNotification(title: string, message: string): void {

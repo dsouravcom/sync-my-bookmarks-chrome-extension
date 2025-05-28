@@ -1,6 +1,5 @@
 import { useState } from "react";
-import type { User } from "../types";
-import type { BookmarkNode } from "../types";
+import type { BookmarkNode, User } from "../types";
 import BookmarkCard from "./BookmarkCard";
 
 function FolderSection({
