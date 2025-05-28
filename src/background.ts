@@ -1,6 +1,4 @@
 import type { BookmarkNode, BookmarkTreeNode } from "./types";
-// Import periodic sync functionality
-import "./periodicSync";
 
 const API_URL = "https://api.smb.sourav.dev/api/bookmarks";
 
