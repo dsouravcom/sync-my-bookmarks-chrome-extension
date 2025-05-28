@@ -3,14 +3,6 @@ import type { BookmarkNode } from "./types";
 
 const API_URL = "https://api.smb.sourav.dev/api/bookmarks";
 
-const getDefaultTitle = (url: string): string => {
-  try {
-    return new URL(url).hostname.replace("www.", "");
-  } catch {
-    return url.length > 20 ? `${url.substring(0, 20)}...` : url;
-  }
-};
-
 // Helper function to get all existing bookmarks from Chrome
 const getExistingChromeBookmarks = (): Promise<BookmarkNode[]> => {
   return new Promise((resolve) => {
@@ -235,7 +227,7 @@ export const firstSync = async () => {
             // Create bookmark
             await chrome.bookmarks.create({
               parentId: parentChromeId,
-              title: item.title || getDefaultTitle(item.url),
+              title: item.title || "",
               url: item.url,
             });
 
@@ -271,7 +263,7 @@ export const firstSync = async () => {
         try {
           await chrome.bookmarks.create({
             parentId: "1", // Add to Bookmarks bar by default
-            title: bookmark.title || getDefaultTitle(bookmark.url || ""),
+            title: bookmark.title || "",
             url: bookmark.url,
           });
         } catch (error) {
@@ -477,7 +469,7 @@ export const fullSync = async (): Promise<void> => {
           // Create bookmark
           await chrome.bookmarks.create({
             parentId: parentChromeId,
-            title: item.title || getDefaultTitle(item.url),
+            title: item.title || "",
             url: item.url,
           });
 
